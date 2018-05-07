@@ -1,35 +1,41 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import {withRouter} from 'react-router-dom';
-import classnames from 'classnames';
-import {connect} from 'react-redux';
-import {registerUser} from '../../actions/authActions';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
+import classnames from "classnames";
+import { connect } from "react-redux";
+import { registerUser } from "../../actions/authActions";
 
 class Register extends Component {
   constructor() {
     super();
     this.state = {
-      name: '',
-      email: '',
-      password: '',
-      password2: '',
+      name: "",
+      email: "",
+      password: "",
+      password2: "",
       errors: {}
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.errors) {
-      this.setState({errors: nextProps.errors});
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
     }
   }
 
-  onChange(event){
-    this.setState({[event.target.name]: event.target.value});
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
   }
 
-  onSubmit(event){
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
+  onSubmit(event) {
     event.preventDefault();
 
     const newUser = {
@@ -37,10 +43,9 @@ class Register extends Component {
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2
-    }
+    };
 
     this.props.registerUser(newUser, this.props.history);
-
   }
 
   render() {
@@ -57,54 +62,62 @@ class Register extends Component {
                 <div className="form-group">
                   <input
                     type="text"
-                    className={classnames('form-control form-control-lg', {
-                      'is-invalid': errors.name
+                    className={classnames("form-control form-control-lg", {
+                      "is-invalid": errors.name
                     })}
                     placeholder="Name"
                     name="name"
                     value={this.state.name}
                     onChange={this.onChange}
                   />
-                  {errors.name && (<div className="invalid-feedback">{errors.name}</div>)}
+                  {errors.name && (
+                    <div className="invalid-feedback">{errors.name}</div>
+                  )}
                 </div>
                 <div className="form-group">
                   <input
                     type="email"
-                    className={classnames('form-control form-control-lg', {
-                      'is-invalid': errors.email
+                    className={classnames("form-control form-control-lg", {
+                      "is-invalid": errors.email
                     })}
                     placeholder="Email Address"
                     name="email"
                     value={this.state.email}
                     onChange={this.onChange}
                   />
-                  {errors.email && (<div className="invalid-feedback">{errors.email}</div>)}
+                  {errors.email && (
+                    <div className="invalid-feedback">{errors.email}</div>
+                  )}
                 </div>
                 <div className="form-group">
                   <input
                     type="password"
-                    className={classnames('form-control form-control-lg', {
-                      'is-invalid': errors.password
+                    className={classnames("form-control form-control-lg", {
+                      "is-invalid": errors.password
                     })}
                     placeholder="Password"
                     name="password"
                     value={this.state.password}
                     onChange={this.onChange}
                   />
-                  {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
+                  {errors.password && (
+                    <div className="invalid-feedback">{errors.password}</div>
+                  )}
                 </div>
                 <div className="form-group">
                   <input
                     type="password"
-                    className={classnames('form-control form-control-lg', {
-                      'is-invalid': errors.password2
+                    className={classnames("form-control form-control-lg", {
+                      "is-invalid": errors.password2
                     })}
                     placeholder="Confirm Password"
                     name="password2"
                     value={this.state.password2}
                     onChange={this.onChange}
                   />
-                  {errors.password2 && (<div className="invalid-feedback">{errors.password2}</div>)}
+                  {errors.password2 && (
+                    <div className="invalid-feedback">{errors.password2}</div>
+                  )}
                 </div>
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
@@ -112,7 +125,7 @@ class Register extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -122,9 +135,9 @@ Register.propTypes = {
   errors: PropTypes.object.isRequired
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   auth: state.auth,
   errors: state.errors
 });
 
-export default connect(mapStateToProps, {registerUser})(withRouter(Register));
+export default connect(mapStateToProps, { registerUser })(withRouter(Register));
