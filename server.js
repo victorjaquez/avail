@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static("client"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
