@@ -1,35 +1,34 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const passport = require('passport');
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const passport = require("passport");
 
 app.use(express.json());
-app.use(express.static('public'));
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.static("public"));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(passport. initialize());
+app.use(passport.initialize());
 
-require('./config/passport.js')(passport);
+require("./config/passport.js")(passport);
 
+const coinsController = require("./controllers/coins.js");
+app.use("/coins", coinsController);
 
+const usersController = require("./controllers/users.js");
+app.use("/user", usersController);
 
-const coinsController = require('./controllers/coins.js');
-app.use('/coins', coinsController);
+const profileController = require("./controllers/profile.js");
+app.use("/profile", profileController);
 
-const usersController = require('./controllers/users.js');
-app.use('/user', usersController);
+const mongoURI = process.env.MONGODB_URI || "mongodb://localhost:27017/avail";
+mongoose.connect(mongoURI);
 
-const profileController = require('./controllers/profile.js');
-app.use('/profile', profileController);
-
-
-mongoose.connect('mongodb://localhost:27017/avail');
-
-mongoose.connection.once('open', ()=>{
-  console.log('connected to mongoose . . .');
+mongoose.connection.once("open", () => {
+  console.log("connected to mongo . . .");
 });
 
-app.listen(5000, ()=>{
-  console.log('listening on port 3000. . .');
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+  console.log("listening on port 5000. . .");
 });
