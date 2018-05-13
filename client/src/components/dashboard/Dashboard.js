@@ -46,9 +46,20 @@ class Dashboard extends Component {
         dashboardContent = (
           <div>
             <p className="lead text-muted">Welcome {user.name}</p>
-            <p>You have not created a profiled yet, please add some info.</p>
-            <Link to="/create-profile" className="btn btn-lg btn-info">
+            <p>
+              You have not created a wallet yet, please add some coins and claim
+              your username.
+            </p>
+
+            <Link
+              to="/create-profile"
+              className="btn btn-sm btn-info"
+              id="handle"
+            >
               Create profile
+            </Link>
+            <Link to="/add-coins" className="btn btn-sm btn-info">
+              Add Coins
             </Link>
           </div>
         );

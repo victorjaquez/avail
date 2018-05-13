@@ -5,6 +5,7 @@ const passport = require("passport");
 
 // Load input validation
 const validateProfileInput = require("../validation/profile");
+const validateCoinInput = require("../validation/coins");
 
 // Load profile model
 const Profile = require("../models/Profile");
@@ -84,7 +85,34 @@ router.post(
   }
 );
 
-// @route   DELETE api/profile
+// @route   POST /profile/coins
+// @desc    Add coins to profile
+
+router.post(
+  "/coins",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = validateCoinInput(req.body);
+
+    // Check validation
+    if (!isValid) {
+      // Return any errors with 400 status
+      return res.status(400).json(errors);
+    }
+
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      const newCoin = {
+        name: req.body.name,
+        amount: req.body.amount
+      };
+      // Add to coin array
+      profile.coins.unshift(newCoin);
+      profile.save().then(profile => res.json(profile));
+    });
+  }
+);
+
+// @route   DELETE /profile
 // @desc    Delete user and profile
 router.delete(
   "/",

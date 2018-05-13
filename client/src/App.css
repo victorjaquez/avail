@@ -1,11 +1,10 @@
-
-
 img {
   width: 100%;
 }
 
 .landing {
   position: relative;
+  background: url("./components/img/showcase.jpg") no-repeat;
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -18,7 +17,7 @@ hr {
 }
 
 .dark-overlay {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.3);
   position: absolute;
   top: 0;
   left: 0;
@@ -29,3 +28,12 @@ hr {
 .card-form {
   opacity: 0.9;
 }
+
+#handle {
+  margin-right: 5px;
+}
+
+/* .navbar {
+  background: rgba(0, 0, 0, 0.6) !important;
+  opacity: 0.4;
+} */
