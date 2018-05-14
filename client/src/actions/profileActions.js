@@ -52,6 +52,19 @@ export const addCoins = (expData, history) => dispatch => {
     );
 };
 
+// // Delete coins
+// export const deleteCoins = id => dispatch => {
+//   axios
+//     .delete(`/profile/coins`)
+//     .then(res => history.push("/dashboard"))
+//     .catch(err =>
+//       dispatch({
+//         type: GET_ERRORS,
+//         payload: err.response.data
+//       })
+//     );
+// };
+
 // Delete account & profile
 export const deleteAccount = () => dispatch => {
   if (window.confirm("Are you sure? This can not be reversed!")) {
