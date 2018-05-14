@@ -6,6 +6,7 @@ import { getCurrentProfile, deleteAccount } from "../../actions/profileActions";
 import Spinner from "../common/Spinner";
 import ProfileActions from "./ProfileActions";
 import Coins from "./Coins";
+import Ticker from "./Ticker";
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -29,6 +30,7 @@ class Dashboard extends Component {
       if (Object.keys(profile).length > 0) {
         dashboardContent = (
           <div>
+            <Ticker />
             <p className="lead text-muted">
               Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
             </p>

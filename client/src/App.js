@@ -19,6 +19,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import CreateProfile from "./components/create-profile/CreateProfile";
 import EditProfile from "./components/edit-profile/EditProfile";
 import AddCoins from "./components/coins/AddCoins";
+import Ticker from "./components/dashboard/Ticker";
 
 import "./App.css";
 
@@ -49,6 +50,7 @@ class App extends Component {
         <Router>
           <div className="App">
             <Navbar />
+
             <Route exact path="/" component={Landing} />
             <div className="container">
               <Route exact path="/register" component={Register} />
