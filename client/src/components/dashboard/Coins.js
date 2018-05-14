@@ -9,9 +9,9 @@ class Coins extends Component {
       <tr key={exp._id}>
         <td>{exp.name}</td>
         <td>{exp.amount}</td>
-        {/* <td>
-          <button className="btn btn-danger">Delete</button>
-        </td> */}
+        <td>
+          <button className="btn btn-sm btn-light">X</button>
+        </td>
       </tr>
     ));
     return (
